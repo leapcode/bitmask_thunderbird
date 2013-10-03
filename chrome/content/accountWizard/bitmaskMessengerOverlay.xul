@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE overlay SYSTEM "chrome://bitmask/locale/bitmaskMessengerOverlay.dtd">
+<overlay id="bitmaskMessengerOverlay" 
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/javascript"
+          src="chrome://bitmask/content/accountWizard/launchAccountWizard.js"/>
+  <menupopup id="menu_NewPopup">
+    <menuitem id="newBitmaskAccountMenuItem"
+              label="&newBitmaskAccountCmd.label;"
+              accesskey="&newBitmaskAccountCmd.accesskey;"
+              oncommand="launchAccountWizard();"
+              insertbefore="newPopupMenuSeparator" />
+  </menupopup>
+</overlay>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<overlay id="bitmaskStatusBarOverlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script type="application/javascript"
+          src="chrome://bitmask/content/util.js"/>
+  <script type="application/javascript"
+          src="chrome://bitmask/content/serverConfig.js"/>
+  <script type="application/javascript"
+          src="chrome://bitmask/content/accountWizard/bitmaskAccountManagerOverlay.js"/>
+  <script type="application/javascript"
+          src="chrome://bitmask/content/statusBar/statusBarOverlay.js"/>
+  <statusbar id="status-bar">
+    <statusbarpanel id="bitmask-status-bar"
+                    label="Bitmask"
+                    onclick="handleStatusBarClick();" />
+  </statusbar>
+</overlay>
