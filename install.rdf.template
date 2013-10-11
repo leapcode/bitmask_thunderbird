@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <Description about="urn:mozilla:install-manifest">
     <em:id>bitmask-thunderbird@leap.se</em:id>
     <em:name>Bitmask Thunderbird Extension</em:name>
-    <em:version>0.0.1</em:version>
+    <em:version>__VERSION__</em:version>
     <em:creator>LEAP developers</em:creator>
    
     <em:targetApplication>
@@ -34,6 +34,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         <em:maxVersion>24.0.*</em:maxVersion>
       </Description>
     </em:targetApplication>
+    <!-- here is an example for future localizations ; 
+         em: name, em:description, em:creator 
+         should probably be overridden -->
+    <em:localized> 
+      <Description> 
+	<em:locale>en-US</em:locale> 
+        <em:name>Bitmask</em:name>
+        <em:description>Configure Bitmask encrypted mail accounts.
+        </em:description>
+        <em:creator>The LEAP Encryption Access Project</em:creator>
+      </Description> 
+    <em:localized> 
+      <Description> 
+	<em:locale>es-ES</em:locale> 
+        <em:name>Bitmask</em:name>
+        <em:description>Configura cuentas Bitmask de correo cifrado.
+        </em:description>
+        <em:creator>El projecto LEAP, Encryption Access Project</em:creator>
+      </Description> 
+    </em:localized> 
    
   </Description>      
 </RDF>
