@@ -5,7 +5,7 @@ RSA_FILE := META-INF/zigbert.rsa
 
 # the following variables are updated automatically
 COMMIT   := $(shell git --no-pager log -1 --format=format:%h)
-VERSION  := $(shell grep \<em:version\> $(PREFIX)/install.rdf | sed -e s/[^\>]\\\+\>// -e s/\<[^\>]\\\+\>//)
+VERSION = $(shell head -n1 Changelog | sed -e 's/^.*(//' -e 's/).*$$//')
 PKGNAME  := $(EXTNAME)-$(VERSION)-$(COMMIT).xpi
 TARGET   := $(CURDIR)/build/$(PKGNAME)
 TEMPDIR  := $(shell mktemp -d -u)
@@ -33,6 +33,7 @@ endif
 endif
 endif
 
+
 # main rule
 all: clean $(TARGET)
 
@@ -55,8 +56,15 @@ signed: clean
 
 clean:
 	rm -f $(TARGET) build/*
+	rm -f install.rdf
 
 upload:
 	scp build/* downloads.leap.se:~/public/thunderbird_extension/
+
+debian-package:
+	git buildpackage -us -uc
+
+install.rdf: install.rdf.template Changelog
+        sed 's/__VERSION__/$(VERSION)/' < $< > $@   
 
 .PHONY: all clean signed
