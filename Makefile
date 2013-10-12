@@ -43,7 +43,7 @@ $(TARGET): clean
 	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
 	(cd $(TEMPDIR) && zip -r $(TARGET) ./)
 	rm -rf $(TEMPDIR)
-	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg --default-key $(DEFAULTKEY) --sign SHA512SUMS)
+	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg -a --default-key $(DEFAULTKEY) --detach-sign SHA512SUMS)
 
 signed: clean
 	mkdir -p $(TEMPDIR)
@@ -51,12 +51,13 @@ signed: clean
 	signtool -d $(CERTDIR) -k $(CERTNAME) $(TEMPDIR)/
 	(cd $(TEMPDIR) && zip $(TARGET) ./$(RSA_FILE) && zip -r -D $(TARGET) ./ -x ./$(RSA_FILE))
 	rm -rf $(TEMPDIR)
-	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg --default-key $(DEFAULTKEY) --sign SHA512SUMS)
+	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg -a --default-key $(DEFAULTKEY) --detach-sign SHA512SUMS)
 
 clean:
 	rm -f $(TARGET) build/*
 
 upload:
-	scp build/* downloads.leap.se:~/public/thunderbird_extension/
+	ssh downloads.leap.se rm -rf /var/www/leap-downloads/public/thunderbird_extension/*
+	scp build/* downloads.leap.se:/var/www/leap-downloads/public/thunderbird_extension/
 
 .PHONY: all clean signed
