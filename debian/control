@@ -1,0 +1,28 @@
+Source: xul-ext-bitmask
+Section: web
+Priority: optional
+Maintainer: Ben Carrillo <ben@futeisha.org>
+Uploaders: Micah Anderson <mica@debian.org>
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9~),
+ mozilla-devscripts (>= 0.19~),
+ inkscape,
+ texlive-fonts-recommended
+Homepage: https://github.com/leapcode/thunderbird_extension
+
+Package: xul-ext-bitmask
+Architecture: all
+Depends: ${misc:Depends}, ${xpi:Depends}, icedove (>= 24.0~b1)
+Recommends: ${xpi:Recommends},
+ bitmask
+Provides: ${xpi:Provides}
+Enhances: ${xpi:Enhances}
+Breaks: ${xpi:Breaks}
+Description: Automatic configuration for Bitmask Encrypted Mail accounts
+ Bitmask is a desktop client that provides easy-to-use Encrypted Email and
+ Encrypted Internet Proxy services.
+ .
+ This extensions provides a wizard for autoconfiguring Thunderbird with Bitmask
+ accounts. It will try to use the default ports used by the SMTP and IMAP
+ services offered by the Bitmask client. It also turns off caching and prevents users from
+ modifying this setting to protect privacy.
