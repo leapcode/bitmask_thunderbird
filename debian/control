@@ -16,11 +16,11 @@ Recommends: ${xpi:Recommends},
 Provides: ${xpi:Provides}
 Enhances: ${xpi:Enhances}
 Breaks: ${xpi:Breaks}
-Description: Automatic configuration for Bitmask Encrypted Mail accounts
+Description: Automatic configuration for Bitmask encrypted mail accounts
  Bitmask is a desktop client that provides easy-to-use Encrypted Email and
  Encrypted Internet Proxy services.
  .
  This extensions provides a wizard for autoconfiguring Thunderbird with Bitmask
  accounts. It will try to use the default ports used by the SMTP and IMAP
- services offered by the Bitmask client. It also turns off caching and prevents users from
- modifying this setting to protect privacy.
+ services offered by the Bitmask client. It also turns off caching and prevents 
+ users from modifying this setting to protect privacy.
