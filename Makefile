@@ -39,7 +39,7 @@ all: clean $(TARGET)
 
 # main target: .xpi file
 
-$(TARGET): clean
+$(TARGET): clean install.rdf
 	mkdir -p $(TEMPDIR)
 	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
 	(cd $(TEMPDIR) && zip -r $(TARGET) ./)
@@ -66,6 +66,6 @@ debian-package:
 	git buildpackage -us -uc
 
 install.rdf: install.rdf.template Changelog
-        sed 's/__VERSION__/$(VERSION)/' < $< > $@   
+	sed 's/__VERSION__/$(VERSION)/' < $< > $@
 
 .PHONY: all clean signed
