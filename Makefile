@@ -41,14 +41,18 @@ all: clean $(TARGET)
 
 $(TARGET): clean install.rdf
 	mkdir -p $(TEMPDIR)
+	mkdir -p `dirname $@`
 	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
+	rm -rf $(TEMPDIR)/.gitignore
 	(cd $(TEMPDIR) && zip -r $(TARGET) ./)
 	rm -rf $(TEMPDIR)
 	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg -a --default-key $(DEFAULTKEY) --detach-sign SHA512SUMS)
 
 signed: clean
 	mkdir -p $(TEMPDIR)
+	mkdir -p `dirname $@`
 	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
+	rm -rf $(TEMPDIR)/.gitignore
 	signtool -d $(CERTDIR) -k $(CERTNAME) $(TEMPDIR)/
 	(cd $(TEMPDIR) && zip $(TARGET) ./$(RSA_FILE) && zip -r -D $(TARGET) ./ -x ./$(RSA_FILE))
 	rm -rf $(TEMPDIR)
