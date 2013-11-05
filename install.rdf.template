@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <em:name>Bitmask Thunderbird Extension</em:name>
     <em:version>__VERSION__</em:version>
     <em:creator>LEAP developers</em:creator>
+    <em:type>2</em:type> <!-- type=extension -->
    
     <em:targetApplication>
       <Description>

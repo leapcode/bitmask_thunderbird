@@ -28,7 +28,6 @@ Cu.import("resource:///modules/gloda/log4moz.js");
 let gEmailWizardLogger = Log4Moz.getConfiguredLogger("mail.wizard");
 
 var gStringsBundle;
-var gMessengerBundle;
 var gBrandShortName;
 
 function e(elementID)
@@ -125,8 +124,7 @@ BitmaskAccountWizard.prototype =
 
     gEmailWizardLogger.info("Email account setup dialog loaded.");
 
-    gStringsBundle = e("strings");
-    gMessengerBundle = e("bundle_messenger");
+    gStringsBundle = e("accountCreationStrings");
     gBrandShortName = e("bundle_brand").getString("brandShortName");
 
     // admin-locked prefs hurray
