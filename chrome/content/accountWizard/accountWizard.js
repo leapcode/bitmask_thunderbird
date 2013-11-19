@@ -110,7 +110,7 @@ BitmaskAccountWizard.prototype =
     this._email = "";
     this._realname = (userFullname) ? userFullname : "";
     e("realname").value = this._realname;
-    this._password = "";
+    this._password = "123";  // use any password for now
     this._okCallback = null;
 
     if (window.arguments && window.arguments[0]) {
@@ -128,11 +128,12 @@ BitmaskAccountWizard.prototype =
     gBrandShortName = e("bundle_brand").getString("brandShortName");
 
     // admin-locked prefs hurray
-    if (!Services.prefs.getBoolPref("signon.rememberSignons")) {
-      let rememberPasswordE = e("remember_password");
-      rememberPasswordE.checked = false;
-      rememberPasswordE.disabled = true;
-    }
+    // we do not use password for now
+    //if (!Services.prefs.getBoolPref("signon.rememberSignons")) {
+    //  let rememberPasswordE = e("remember_password");
+    //  rememberPasswordE.checked = false;
+    //  rememberPasswordE.disabled = true;
+    //}
 
     // First, unhide the main window areas, and store the width,
     // so that we don't resize wildly when we unhide areas.
@@ -203,8 +204,9 @@ BitmaskAccountWizard.prototype =
   {
     var result = this._currentConfig.copy();
     replaceVariables(result, this._realname, this._email, this._password);
-    result.rememberPassword = e("remember_password").checked &&
-                              !!this._password;
+    //result.rememberPassword = e("remember_password").checked &&
+    //                          !!this._password;
+    result.rememberPassword = true;
     return result;
   },
 
