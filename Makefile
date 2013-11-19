@@ -5,7 +5,7 @@ RSA_FILE := META-INF/zigbert.rsa
 
 # the following variables are updated automatically
 COMMIT   := $(shell git --no-pager log -1 --format=format:%h)
-VERSION = $(shell head -n1 Changelog | sed -e 's/^.*(//' -e 's/).*$$//')
+VERSION = $(shell head -n1 CHANGELOG | cut -d" " -f1)
 PKGNAME  := $(EXTNAME)-$(VERSION)-$(COMMIT).xpi
 TARGET   := $(CURDIR)/build/$(PKGNAME)
 TEMPDIR  := $(shell mktemp -d -u)
