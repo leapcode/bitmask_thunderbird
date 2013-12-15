@@ -28,6 +28,7 @@ Cu.import("resource:///modules/gloda/log4moz.js");
 let gEmailWizardLogger = Log4Moz.getConfiguredLogger("mail.wizard");
 
 var gStringsBundle;
+var gAccountWizardStringsBundle;
 var gBrandShortName;
 
 function e(elementID)
@@ -125,6 +126,7 @@ BitmaskAccountWizard.prototype =
     gEmailWizardLogger.info("Email account setup dialog loaded.");
 
     gStringsBundle = e("accountCreationStrings");
+    gAccountWizardStringsBundle = e("accountWizardStrings");
     gBrandShortName = e("bundle_brand").getString("brandShortName");
 
     // admin-locked prefs hurray
@@ -463,13 +465,13 @@ BitmaskAccountWizard.prototype =
           unknownString);
       let host = server.hostname +
           (isStandardPort(server.port) ? "" : ":" + server.port);
-      let ssl = gStringsBundle.getString(sanitize.translate(server.socketType,
-          { 1 : "resultNoEncryption", 2 : "resultSSL", 3 : "resultSTARTTLS" }),
-          unknownString);
-      let certStatus = gStringsBundle.getString(server.badCert ?
-          "resultSSLCertWeak" : "resultSSLCertOK");
-      return gStringsBundle.getFormattedString(stringName,
-          [ type, host, ssl, certStatus ]);
+      //let ssl = gStringsBundle.getString(sanitize.translate(server.socketType,
+      //    { 1 : "resultNoEncryption", 2 : "resultSSL", 3 : "resultSTARTTLS" }),
+      //    unknownString);
+      //let certStatus = gStringsBundle.getString(server.badCert ?
+      //    "resultSSLCertWeak" : "resultSSLCertOK");
+      return gAccountWizardStringsBundle.getFormattedString(stringName,
+          [ type, host ]);
     };
 
     var incomingResult = unknownString;
