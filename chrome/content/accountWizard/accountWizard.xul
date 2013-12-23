@@ -31,12 +31,10 @@
   <stringbundleset>
     <stringbundle id="bundle_brand"
           src="chrome://branding/locale/brand.properties"/>
-    <stringbundle id="strings"
+    <stringbundle id="accountCreationStrings"
           src="chrome://messenger/locale/accountCreation.properties"/>
-    <stringbundle id="utilstrings"
-          src="chrome://messenger/locale/accountCreationUtil.properties"/>
-    <stringbundle id="bundle_messenger"
-          src="chrome://messenger/locale/messenger.properties"/>
+    <stringbundle id="accountWizardStrings"
+          src="chrome://bitmask/locale/accountWizard.properties"/>
   </stringbundleset>
   <script type="application/javascript"
           src="chrome://bitmask/content/serverConfig.js"/>
@@ -112,9 +110,8 @@
             <description id="emailerror" class="errordescription" hidden="true"/>
           </hbox>
         </row>
+        <!-- we do not use the password for now.
         <row align="center">
-          <!-- this starts out as text so the emptytext shows, but then
-               changes to type=password once it's not empty -->
           <label accesskey="&password.accesskey;"
                  class="autoconfigLabel"
                  value="&password.label;"
@@ -141,6 +138,7 @@
                     accesskey="&rememberPassword.accesskey;"
                     checked="true"/>
         </row>
+        -->
       </rows>
     </grid>
     <spacer flex="1" />

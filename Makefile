@@ -5,7 +5,7 @@ RSA_FILE := META-INF/zigbert.rsa
 
 # the following variables are updated automatically
 COMMIT   := $(shell git --no-pager log -1 --format=format:%h)
-VERSION = $(shell head -n1 Changelog | sed -e 's/^.*(//' -e 's/).*$$//')
+VERSION = $(shell head -n1 CHANGELOG | cut -d" " -f1)
 PKGNAME  := $(EXTNAME)-$(VERSION)-$(COMMIT).xpi
 # XXX for debian makefile it's simpler to pick a fixed name.
 # XXX we could build it and rename in another goal.
@@ -54,28 +54,44 @@ xpi_release:
 	ln -s $(XPINAME) $(PKGNAME) 
 
 
+
 # main rule
 #all: clean $(TARGET)
 
 # main target: .xpi file
 
-#$(TARGET):
-#	mkdir -p $(TEMPDIR)
-#	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
-#	(cd $(TEMPDIR) && zip $@ $(XPI_CONTENTS))
-#	rm -rf $(TEMPDIR)
-#	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg --default-key $(DEFAULTKEY) --sign SHA512SUMS)
+$(TARGET): clean install.rdf
+	mkdir -p $(TEMPDIR)
+	mkdir -p `dirname $@`
+	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
+	rm -rf $(TEMPDIR)/.gitignore
+	(cd $(TEMPDIR) && zip -r $(TARGET) ./)
+	rm -rf $(TEMPDIR)
+	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg -a --default-key $(DEFAULTKEY) --detach-sign SHA512SUMS)
 
 signed: clean
 	mkdir -p $(TEMPDIR)
+	mkdir -p `dirname $@`
 	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
+	rm -rf $(TEMPDIR)/.gitignore
 	signtool -d $(CERTDIR) -k $(CERTNAME) $(TEMPDIR)/
 	(cd $(TEMPDIR) && zip $(TARGET) ./$(RSA_FILE) && zip -D $@ $(XPI_CONTENTS) -x ./$(RSA_FILE))
 	rm -rf $(TEMPDIR)
-	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg --default-key $(DEFAULTKEY) --sign SHA512SUMS)
+	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg -a --default-key $(DEFAULTKEY) --detach-sign SHA512SUMS)
+
+clean:
+	rm -f $(TARGET) build/*
+	rm -f install.rdf
 
 upload:
-	scp build/* downloads.leap.se:~/public/thunderbird_extension/
+	ssh downloads.leap.se rm -rf /var/www/leap-downloads/public/thunderbird_extension/*
+	scp build/* downloads.leap.se:/var/www/leap-downloads/public/thunderbird_extension/
+
+debian-package:
+	git buildpackage -us -uc
+
+install.rdf: install.rdf.template Changelog
+	sed 's/__VERSION__/$(VERSION)/' < $< > $@
 
 debian-package:
 	git buildpackage -us -uc

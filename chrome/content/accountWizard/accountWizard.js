@@ -28,7 +28,7 @@ Cu.import("resource:///modules/gloda/log4moz.js");
 let gEmailWizardLogger = Log4Moz.getConfiguredLogger("mail.wizard");
 
 var gStringsBundle;
-var gMessengerBundle;
+var gAccountWizardStringsBundle;
 var gBrandShortName;
 
 function e(elementID)
@@ -111,7 +111,7 @@ BitmaskAccountWizard.prototype =
     this._email = "";
     this._realname = (userFullname) ? userFullname : "";
     e("realname").value = this._realname;
-    this._password = "";
+    this._password = "123";  // use any password for now
     this._okCallback = null;
 
     if (window.arguments && window.arguments[0]) {
@@ -125,16 +125,17 @@ BitmaskAccountWizard.prototype =
 
     gEmailWizardLogger.info("Email account setup dialog loaded.");
 
-    gStringsBundle = e("strings");
-    gMessengerBundle = e("bundle_messenger");
+    gStringsBundle = e("accountCreationStrings");
+    gAccountWizardStringsBundle = e("accountWizardStrings");
     gBrandShortName = e("bundle_brand").getString("brandShortName");
 
     // admin-locked prefs hurray
-    if (!Services.prefs.getBoolPref("signon.rememberSignons")) {
-      let rememberPasswordE = e("remember_password");
-      rememberPasswordE.checked = false;
-      rememberPasswordE.disabled = true;
-    }
+    // we do not use password for now
+    //if (!Services.prefs.getBoolPref("signon.rememberSignons")) {
+    //  let rememberPasswordE = e("remember_password");
+    //  rememberPasswordE.checked = false;
+    //  rememberPasswordE.disabled = true;
+    //}
 
     // First, unhide the main window areas, and store the width,
     // so that we don't resize wildly when we unhide areas.
@@ -205,8 +206,9 @@ BitmaskAccountWizard.prototype =
   {
     var result = this._currentConfig.copy();
     replaceVariables(result, this._realname, this._email, this._password);
-    result.rememberPassword = e("remember_password").checked &&
-                              !!this._password;
+    //result.rememberPassword = e("remember_password").checked &&
+    //                          !!this._password;
+    result.rememberPassword = true;
     return result;
   },
 
@@ -463,13 +465,13 @@ BitmaskAccountWizard.prototype =
           unknownString);
       let host = server.hostname +
           (isStandardPort(server.port) ? "" : ":" + server.port);
-      let ssl = gStringsBundle.getString(sanitize.translate(server.socketType,
-          { 1 : "resultNoEncryption", 2 : "resultSSL", 3 : "resultSTARTTLS" }),
-          unknownString);
-      let certStatus = gStringsBundle.getString(server.badCert ?
-          "resultSSLCertWeak" : "resultSSLCertOK");
-      return gStringsBundle.getFormattedString(stringName,
-          [ type, host, ssl, certStatus ]);
+      //let ssl = gStringsBundle.getString(sanitize.translate(server.socketType,
+      //    { 1 : "resultNoEncryption", 2 : "resultSSL", 3 : "resultSTARTTLS" }),
+      //    unknownString);
+      //let certStatus = gStringsBundle.getString(server.badCert ?
+      //    "resultSSLCertWeak" : "resultSSLCertOK");
+      return gAccountWizardStringsBundle.getFormattedString(stringName,
+          [ type, host ]);
     };
 
     var incomingResult = unknownString;
