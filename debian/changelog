@@ -1,3 +1,9 @@
+xul-ext-bitmask (0.0.3) unstable; urgency=low
+
+  * Update to 0.0.3 release.
+
+ -- Ben Carrillo <ben@futeisha.org>  Mon, 23 Dec 2013 16:38:31 -0400
+
 xul-ext-bitmask (0.0.1) unstable; urgency=low
 
   * Initial release. (Closes: #XXXXXX)
