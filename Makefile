@@ -42,7 +42,7 @@ endif
 endif
 endif
 
-XPI_CONTENTS:=$(shell find chrome -name "*.html" -o -name "*.xhtml" -o -name "*.css" -o -name "*.png" -o -name "*.gif" -o -name "*.js" -o -name "*.jsm" -o -name "*.dtd" -o -name "*.xul" -o -name "messages") chrome.manifest install.rdf COPYING
+XPI_CONTENTS:=$(shell find chrome -name "*.html" -o -name "*.xhtml" -o -name "*.css" -o -name "*.png" -o -name "*.gif" -o -name "*.js" -o -name "*.jsm" -o -name "*.dtd" -o -name "*.xul" -o -name "messages" -o -name "*.properties") chrome.manifest install.rdf COPYING
 
 bitmask.xpi: $(XPI_CONTENTS)
 	zip $@ $(XPI_CONTENTS)
