@@ -10,7 +10,7 @@ Homepage: https://github.com/leapcode/thunderbird_extension
 
 Package: xul-ext-bitmask
 Architecture: all
-Depends: ${misc:Depends}, ${xpi:Depends}, icedove (>= 24.0~b1)
+Depends: ${misc:Depends}, ${xpi:Depends}
 Recommends: ${xpi:Recommends},
  bitmask
 Provides: ${xpi:Provides}

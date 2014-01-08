@@ -1,3 +1,10 @@
+xul-ext-bitmask (0.0.3.1) unstable; urgency=medium
+
+  * Remove Dependency on icedove, this is handled by the Enhances/Breaks 
+  xpi variables
+
+ -- Micah Anderson <micah@debian.org>  Wed, 08 Jan 2014 17:25:20 -0500
+
 xul-ext-bitmask (0.0.3) unstable; urgency=low
 
   * Update to 0.0.3 release.
