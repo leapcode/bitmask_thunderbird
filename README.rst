@@ -22,8 +22,7 @@ extension directory whose contents point to the repository dir:
 * The file must be created in the `~/.thunderbird/<profile>/extensions/`
   directory.
 * The file name must be `bitmask-thunderbird@leap.se`.
-* The file contents must be the path for the `src/` directory inside this
-  repository.
+* The file contents must be the path for this repository.
 
 XPI Package
 -----------
@@ -48,7 +47,7 @@ Signed XPI package
 To generate a signed XPI package you must first have a certificate and then do
 the following:
 
-  make sign CERTDIR=<path to cert dir> CERTNAME=<cert name> DEFAULTKEY=<key id>
+  make signed CERTDIR=<path to cert dir> CERTNAME=<cert name> DEFAULTKEY=<key id>
 
 This command will:
 
