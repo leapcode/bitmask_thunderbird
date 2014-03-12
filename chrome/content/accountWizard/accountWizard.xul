@@ -145,7 +145,7 @@
 
      <hbox id="status_area" flex="1">
       <vbox id="status_img_before" pack="start"/>
-      <description id="status_msg">&#160;</description>
+      <description id="status_msg" style="white-space: pre-wrap;">&#160;</description>
               <!-- Include 160 = nbsp, to make the element occupy the
                    full height, for at least one line. With a normal space,
                    it does not have sufficient height. -->
