@@ -33,6 +33,15 @@ endif
 endif
 endif
 
+
+# main rule
+all: clean $(TARGET)
+
+
+#-----------------------------------------------------------------------------
+# debhelper targets
+#-----------------------------------------------------------------------------
+
 XPI_CONTENTS:=$(shell find chrome -name "*.html" -o -name "*.xhtml" -o -name "*.css" -o -name "*.png" -o -name "*.gif" -o -name "*.js" -o -name "*.jsm" -o -name "*.dtd" -o -name "*.xul" -o -name "messages" -o -name "*.properties") chrome.manifest install.rdf COPYING
 
 bitmask.xpi: $(XPI_CONTENTS)
@@ -41,10 +50,10 @@ bitmask.xpi: $(XPI_CONTENTS)
 xpi_release:
 	ln -s $(XPINAME) $(PKGNAME) 
 
-# main rule
-all: clean $(TARGET)
 
-# main target: .xpi file
+#-----------------------------------------------------------------------------
+# unsigned XPI file
+#-----------------------------------------------------------------------------
 
 $(TARGET): clean install.rdf
 	mkdir -p $(TEMPDIR)
@@ -55,7 +64,12 @@ $(TARGET): clean install.rdf
 	rm -rf $(TEMPDIR)
 	(cd build/ && sha512sum $(PKGNAME) > SHA512SUMS && gpg -a --default-key $(DEFAULTKEY) --detach-sign SHA512SUMS)
 
-signed: clean
+
+#-----------------------------------------------------------------------------
+# signed XPI file
+#-----------------------------------------------------------------------------
+
+signed: clean install.rdf
 	mkdir -p $(TEMPDIR)
 	mkdir -p `dirname $@`
 	cp -r $(PREFIX)/{$(FILES_TO_PACKAGE)} $(TEMPDIR)/
@@ -78,5 +92,6 @@ debian-package:
 
 install.rdf: install.rdf.template Changelog
 	sed 's/__VERSION__/$(VERSION)/' < $< > $@
+
 
 .PHONY: all clean signed
