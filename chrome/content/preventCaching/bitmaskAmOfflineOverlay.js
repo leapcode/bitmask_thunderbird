@@ -22,23 +22,32 @@
 var currentAccount = null;
 
 
-// The following function disables UI items that would allow a user to turn
-// on offline caching for a LEAP account. It acts on am-offline.xul items that
+// The following function disables UI items that would allow a user to turn on
+// offline caching for a LEAP account. It acts on am-offline.xul items that
 // can be accessed in Thunderbird by choosing:
 //
 //   Edit -> Account Settings... -> Synchronization and Storage.
+// In order to be somewhat consistent, we only disable those items if the
+// account already has its offline caching turned off. Accounts created with
+// the Bitmask wizard are created with offline caching turned off (and so the
+// UI items are disabled from the beginning). Accounts created manually will
+// have offline caching turned on by default, and thus need a way to disable
+// it if the user ever wants to. Once offline caching is disabled, then the
+// user will not be able to turn it on again for Leap accounts.
 function disableOfflineCaching()
 {
   var disabled;
-  // for now, we consider a LEAP account every account whose incoming server
+  var checkbox = document.getElementById("offline.folders")
+  // For now, we consider a LEAP account every account whose incoming server
   // has a hostname equal to IMAP_HOST and port equal to IMAP_PORT.
   if (currentAccount.incomingServer.port == IMAP_PORT &&
-      currentAccount.incomingServer.hostName == IMAP_HOST)
+      currentAccount.incomingServer.hostName == IMAP_HOST &&
+      checkbox.checked == false)
     disabled = true;
   else
     disabled = false;
   // The "Keep messsages for this account on this computer" checkbox.
-  document.getElementById("offline.folders").disabled = disabled;
+  checkbox.disabled = disabled;
   // The "Advanced..." button.
   document.getElementById("selectImapFoldersButton").disabled = disabled;
 }

@@ -18,6 +18,7 @@
 
 
 Components.utils.import("resource:///modules/mailServices.js");
+Components.utils.import("resource://gre/modules/Services.jsm");
 
 var accountNotConfigured = getStringBundle(
     "chrome://bitmask/locale/statusBar.properties")
@@ -51,6 +52,12 @@ function starUp() {
     updatePanel();
     if (!isBitmaskAccountConfigured()) {
         launchAccountWizard();
+    } else {
+        var server = getBitmaskServer();
+        // TODO: add an alert that there exists a bitmask account with caching
+        // enabled.
+        //if (server.offlineDownload == true)
+        //    alertPrompt('WARNING!');
     }
 }
 
@@ -86,9 +93,15 @@ function handleStatusBarClick() {
  * TODO: also verify for SMTP configuration?
  */
 function isBitmaskAccountConfigured() {
+    return !!getBitmaskServer();
+}
+
+/**
+ * Get a configured bitmask account
+ */
+function getBitmaskServer() {
     var accountManager = Cc["@mozilla.org/messenger/account-manager;1"]
                          .getService(Ci.nsIMsgAccountManager);
-    var existing = accountManager.findRealServer(
+    return accountManager.findRealServer(
         "", IMAP_HOST, "imap", IMAP_PORT);
-    return !!existing;
 }
