@@ -10,8 +10,9 @@
   <script type="application/javascript"
           src="chrome://bitmask/content/statusBar/statusBarOverlay.js"/>
   <statusbar id="status-bar">
-    <statusbarpanel id="bitmask-status-bar"
+    <!-- We don't want messages in status bar for now (#4871) -->
+    <!--<statusbarpanel id="bitmask-status-bar"
                     label="Bitmask"
-                    onclick="handleStatusBarClick();" />
+                    onclick="handleStatusBarClick();" />-->
   </statusbar>
 </overlay>

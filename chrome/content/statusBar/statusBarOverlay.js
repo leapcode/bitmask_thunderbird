@@ -33,15 +33,19 @@ var accountConfigured = getStringBundle(
  ****************************************************************************/
 
 // run startUp() once when window loads
-window.addEventListener("load", function(e) { 
-	starUp(); 
+window.addEventListener("load", function(e) {
+	starUp();
 }, false);
 
+/**
+ * We don't want a message with the bitmask account status in the status bar
+ * for now (see https://leap.se/code/issues/4871).
+ */
 // run updatePanel() periodically
-window.setInterval(
-	function() {
-		updatePanel(); 
-	}, 10000); // update every ten seconds
+//window.setInterval(
+//	function() {
+//		updatePanel();
+//	}, 10000); // update every ten seconds
 
 
 /*****************************************************************************
@@ -49,7 +53,8 @@ window.setInterval(
  ****************************************************************************/
 
 function starUp() {
-    updatePanel();
+    // TODO: uncomment when we want messages in the status bar again.
+    //updatePanel();
     if (!isBitmaskAccountConfigured()) {
         launchAccountWizard();
     } else {
