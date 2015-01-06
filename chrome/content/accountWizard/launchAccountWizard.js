@@ -1,5 +1,5 @@
 /**
- * statusBar.js
+ * launchAccountWizard.js
  * Copyright (C) 2013 LEAP
  *
  * This program is free software: you can redistribute it and/or modify

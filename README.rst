@@ -6,7 +6,6 @@ The Bitmask Thunderbird Extension provides:
 * A wizard for creating email accounts with IMAP/SMTP configuration targeted
   to localhost and the default Bitmask client ports. There are different ways to
   launch the wizard for configuring a Bitmask Account:
-  - Clicking on the statusbar notification.
   - File -> New -> Bitmask account.
   - Edit -> Account Settings... -> Account Actions -> Add Bitmask Accont.
 * Caching prevention: accounts are created with caching turned off and the
