@@ -1,8 +1,19 @@
-0.0.3 Dez 23:
+0.0.4 Jan 07, 2014:
+  o Do not disable caching checkbox for manual accounts when caching is turned
+    on (#4811).
+  o Remove automatic wizard popup when there's no account configured (#6613).
+  o Remove status bar messages (#4871).
+  o Improve error message when configuring account (#4881).
+
+0.0.3 Dec 23, 2013:
   o Remove the password field from the account wizard. Closes #4525.
   o Remove misleading encryption information from wizard (#4545).
-0.0.2 Nov 5:
+
+0.0.2 Nov 5, 2013:
   o Fix items from Mozilla editors review. Closes #4374.
   o Create a Thunderbird extension with a wizard for creating LEAP's Bitmask
     client-compliant accounts and with caching prevention. Closes #3542.
 
+0.0.1 Oct 4, 2013:
+  o Create a Thunderbird extension with a wizard for creating LEAP's Bitmask
+    client-compliant accounts and with caching prevention. Closes #3542.
