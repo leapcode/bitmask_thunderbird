@@ -1,4 +1,4 @@
-0.0.4 Jan 07, 2014:
+0.0.4 Jan 07, 2015:
   o Do not disable caching checkbox for manual accounts when caching is turned
     on (#4811).
   o Remove automatic wizard popup when there's no account configured (#6613).
