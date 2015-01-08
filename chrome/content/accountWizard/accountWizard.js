@@ -405,14 +405,14 @@ BitmaskAccountWizard.prototype =
   {
     e("status_area").setAttribute("status", "loading");
     gEmailWizardLogger.warn("spinner start " + actionStrName);
-    this._showStatusTitle(actionStrName);
+    this._showStatusTitle(actionStrName, gStringsBundle);
   },
 
   stopSpinner : function(actionStrName)
   {
     e("status_area").setAttribute("status", "result");
     _hide("stop_button");
-    this._showStatusTitle(actionStrName);
+    this._showStatusTitle(actionStrName, gStringsBundle);
     gEmailWizardLogger.warn("all spinner stop " + actionStrName);
   },
 
@@ -420,15 +420,15 @@ BitmaskAccountWizard.prototype =
   {
     e("status_area").setAttribute("status", "error");
     gEmailWizardLogger.warn("status error " + actionStrName);
-    this._showStatusTitle(actionStrName);
+    this._showStatusTitle(actionStrName, gAccountWizardStringsBundle);
   },
 
-  _showStatusTitle : function(msgName)
+  _showStatusTitle : function(msgName, bundle)
   {
     let msg = " "; // assure height. Do via min-height in CSS, for 2 lines?
     try {
       if (msgName) {
-        msg = gStringsBundle.getFormattedString(msgName, [gBrandShortName]);
+        msg = bundle.getFormattedString(msgName, [gBrandShortName]);
       }
     } catch(ex) {
       gEmailWizardLogger.error("missing string for " + msgName);
@@ -687,7 +687,7 @@ BitmaskAccountWizard.prototype =
         self.showErrorStatus("config_unverifiable");
         // TODO bug 555448: wrong error msg, there may be a 1000 other
         // reasons why this failed, and this is misleading users.
-        self.setError("passworderror", "user_pass_invalid");
+        //self.setError("passworderror", "user_pass_invalid");
         // TODO use switchToMode(), see above
         // give user something to proceed after fixing
         _enable("create_button");
