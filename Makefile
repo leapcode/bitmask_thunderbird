@@ -21,7 +21,7 @@ XPI_CONTENTS := $(shell find chrome -name "*.html" -o -name "*.xhtml" -o -name "
 $(XPINAME): $(XPI_CONTENTS)
 	zip $@ $(XPI_CONTENTS)
 
-install.rdf: install.rdf.template Changelog
+install.rdf: install.rdf.template CHANGELOG
 	sed 's/__VERSION__/$(VERSION)/' < $< > $@
 
 xpi_release:
