@@ -110,35 +110,6 @@
             <description id="emailerror" class="errordescription" hidden="true"/>
           </hbox>
         </row>
-        <!-- we do not use the password for now.
-        <row align="center">
-          <label accesskey="&password.accesskey;"
-                 class="autoconfigLabel"
-                 value="&password.label;"
-                 control="password"
-                 tooltip="optional-password"/>
-          <textbox id="password"
-                   class="padded"
-                   placeholder="&password.placeholder;"
-                   type="text"
-                   oninput="gBitmaskAccountWizard.onInputPassword();"
-                   onfocus="gBitmaskAccountWizard.onFocusPassword();"
-                   onblur="gBitmaskAccountWizard.onBlurPassword();"/>
-          <hbox>
-            <image id="passworderroricon"
-                   hidden="true"
-                   class="warningicon"/>
-            <description id="passworderror" class="errordescription" hidden="true"/>
-          </hbox>
-        </row>
-        <row align="center" pack="start">
-          <label class="autoconfigLabel"/>
-          <checkbox id="remember_password"
-                    label="&rememberPassword.label;"
-                    accesskey="&rememberPassword.accesskey;"
-                    checked="true"/>
-        </row>
-        -->
       </rows>
     </grid>
     <spacer flex="1" />

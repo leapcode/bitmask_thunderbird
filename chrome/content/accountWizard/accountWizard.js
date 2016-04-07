@@ -6,6 +6,7 @@
 Components.utils.import("resource:///modules/mailServices.js");
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource:///modules/hostnameUtils.jsm");
+Components.utils.import("resource://gre/modules/osfile.jsm");
 
 /**
  * This is the dialog opened by menu File | New account | Mail... .
@@ -111,7 +112,7 @@ BitmaskAccountWizard.prototype =
     this._email = "";
     this._realname = (userFullname) ? userFullname : "";
     e("realname").value = this._realname;
-    this._password = "123";  // use any password for now
+    this._password = "";
     this._okCallback = null;
 
     if (window.arguments && window.arguments[0]) {
@@ -128,14 +129,6 @@ BitmaskAccountWizard.prototype =
     gStringsBundle = e("accountCreationStrings");
     gAccountWizardStringsBundle = e("accountWizardStrings");
     gBrandShortName = e("bundle_brand").getString("brandShortName");
-
-    // admin-locked prefs hurray
-    // we do not use password for now
-    //if (!Services.prefs.getBoolPref("signon.rememberSignons")) {
-    //  let rememberPasswordE = e("remember_password");
-    //  rememberPasswordE.checked = false;
-    //  rememberPasswordE.disabled = true;
-    //}
 
     // First, unhide the main window areas, and store the width,
     // so that we don't resize wildly when we unhide areas.
@@ -206,10 +199,29 @@ BitmaskAccountWizard.prototype =
   {
     var result = this._currentConfig.copy();
     replaceVariables(result, this._realname, this._email, this._password);
-    //result.rememberPassword = e("remember_password").checked &&
-    //                          !!this._password;
     result.rememberPassword = true;
     return result;
+  },
+
+  /**
+   * Get the IMAP an SMTP passwords from the bitmask_tokens file
+   *
+   * if the file doesn't exist we'll use a dummy password to provide
+   * support for bitmask < 0.9.2
+   */
+  getPasswordsFromFile : function()
+  {
+    let path = OS.Path.join(OS.Constants.Path.tmpDir,
+                            "bitmask_tokens",
+                            this._email + ".json");
+    let file_promise = OS.File.read(path);
+    file_promise.then(data => {
+      let decoder = new TextDecoder();
+      this._password = JSON.parse(decoder.decode(data))["mail_auth"];
+    }, ex => { // error reading
+      this._password = "123";
+    });
+    return file_promise;
   },
 
   /*
@@ -257,11 +269,6 @@ BitmaskAccountWizard.prototype =
     this.checkStartDone();
   },
 
-  onInputPassword : function()
-  {
-    this._password = e("password").value;
-  },
-
   /**
    * This does very little other than to check that a name was entered at all
    * Since this is such an insignificant test we should be using a very light
@@ -304,18 +311,6 @@ BitmaskAccountWizard.prototype =
   },
 
   /**
-   * If the user just tabbed through the password input without entering
-   * anything, set the type back to text so we don't wind up showing the
-   * emptytext as bullet characters.
-   */
-  onBlurPassword : function()
-  {
-    if (!this._password) {
-      e("password").type = "text";
-    }
-  },
-
-  /**
    * @see onBlurPassword()
    */
   onFocusPassword : function()
@@ -345,7 +340,10 @@ BitmaskAccountWizard.prototype =
    */
   onNext : function()
   {
-    this.fillConfig(this._domain, this._email);
+    let promise = this.getPasswordsFromFile();
+    promise.then(none => { this.fillConfig(this._domain, this._email); })
+           .catch(Components.utils.reportError);
+    return promise;
   },
 
   fillConfig : function(domain, email)
