@@ -1,3 +1,9 @@
+xul-ext-bitmask (0.0.4.1) UNRELEASED; urgency=medium
+
+  * Merge tokens branch for testing.
+
+ -- Ben Carrillo <ben@futeisha.org>  Thu, 07 Apr 2016 12:59:54 -0400
+
 xul-ext-bitmask (0.0.4) unstable; urgency=low
 
   * Update to 0.0.4 release.
