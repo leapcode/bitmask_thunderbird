@@ -25,8 +25,10 @@ Components.utils.import("resource://gre/modules/osfile.jsm");
 // from http://xyfer.blogspot.com/2005/01/javascript-regexp-email-validator.html
 var emailRE = /^[-_a-z0-9\'+*$^&%=~!?{}]+(?:\.[-_a-z0-9\'+*$^&%=~!?{}]+)*@(?:[-a-z0-9.]+\.[a-z]{2,6}|\d{1,3}(?:\.\d{1,3}){3})(?::\d+)?$/i;
 
-Cu.import("resource:///modules/gloda/log4moz.js");
-let gEmailWizardLogger = Log4Moz.getConfiguredLogger("mail.wizard");
+if (typeof gEmailWizardLogger == "undefined") {
+    Cu.import("resource:///modules/gloda/log4moz.js");
+    let gEmailWizardLogger = Log4Moz.getConfiguredLogger("mail.wizard");
+}
 
 var gStringsBundle;
 var gAccountWizardStringsBundle;
