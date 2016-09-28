@@ -23,6 +23,28 @@ extension directory whose contents point to the repository dir:
 * The file name must be `bitmask-thunderbird@leap.se`.
 * The file contents must be the path for this repository.
 
+Certificates
+------------
+
+For generating signed XPI packages you need a code signing certificate. In
+order to do that you will need Network Security Services ("nss") and Netscape
+Portable Runtime ("nspr"). If you are running debian, you can do:
+
+  apt install libnss3-dev libnspr4-dev libnss3-tools
+
+Initialize some variables:
+
+  CERTDIR=/path/to/cert/dir
+  CERTNICK=myCertificateNickname
+
+Initialize the certificate database:
+
+  certutil -N -d ${CERTDIR}
+
+Generate a signing certificate:
+
+  signtool -G ${CERTNICK} -d ${CERTDIR} -p"<password>"
+
 XPI Package
 -----------
 
