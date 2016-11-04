@@ -1,4 +1,7 @@
-0.0.5 Apr 27, 2015:
+0.0.6 Nov 04, 2016
+  o Check if gEmailWizardLogger is already defined (#8464).
+
+0.0.5 Apr 27, 2016:
   o Read SMTP and IMAP passwords from the bitmask tokens file (#6041).
 
 0.0.4 Jan 07, 2015:
