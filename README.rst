@@ -12,6 +12,24 @@ The Bitmask Thunderbird Extension provides:
   UI is modified to prevent users from turning on caching for these
   accounts.
 
+Releasing a new version
+-----------------------
+
+To release a new version of the extension, do the following:
+
+1.  Update the CHANGELOG file and make sure the new version is correct. The
+    makefile will extract the version from there to create the XPI package.
+2.  Generate a XPI package by running `make`. This will generate a
+    `bitmask.xpi` file.
+3.  Go to https://addons.mozilla.org/
+4.  Login with the LEAP user (mozilla-addons@leap.se).
+5.  Go to Tools -> Manage My Submissions -> Bitmask Thunderbird Extension.
+6.  Choose "Upload New Version" and accept agreements.
+7.  Click "Select a file..." and select the `bitmask.xpi` file.
+8.  Check if there validation was successful, fix any problems.
+9.  Click "Continue".
+10. Get up and go have some fun while you wait for a review of the extension.
+
 Development/testing
 -------------------
 
@@ -22,6 +40,27 @@ extension directory whose contents point to the repository dir:
   directory.
 * The file name must be `bitmask-thunderbird@leap.se`.
 * The file contents must be the path for this repository.
+
+Unsigned XPI Package
+--------------------
+
+To generate an unsigned XPI package, type the following inside the root of the
+repository:
+
+  make
+
+If you want, you can generate a file with the SHA512 checksum of the XPI package, by running:
+
+  make unsigned DEFAULTKEY=<key id>
+
+This command will:
+
+* Generate a `.xpi` file inside the `build/` directory.
+* Create a `build/SHA512SUMS` file containing the sha512 hash of the `.xpi` file.
+* Sign that file with the given `DEFAULTKEY` and create a `build/SHA512SUMS.gpg` file.
+
+You can now use the generated `.xpi` file install the package as a normal
+Thunderbird extension.
 
 Certificates
 ------------
@@ -44,23 +83,6 @@ Initialize the certificate database:
 Generate a signing certificate:
 
   signtool -G ${CERTNICK} -d ${CERTDIR} -p"<password>"
-
-XPI Package
------------
-
-To generate an unsigned XPI package, type the following inside the root of the
-repository:
-
-  make DEFAULTKEY=<key id>
-
-This command will:
-
-* Generate a `.xpi` file inside the `build/` directory.
-* Create a `build/SHA512SUMS` file containing the sha512 hash of the `.xpi` file.
-* Sign that file with the given `DEFAULTKEY` and create a `build/SHA512SUMS.gpg` file.
-
-You can now use the generated `.xpi` file install the package as a normal
-Thunderbird extension.
 
 Signed XPI package
 ------------------
