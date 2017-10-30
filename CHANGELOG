@@ -1,3 +1,7 @@
+0.0.7 Oct 30, 2017
+  o Update string methods so extension is compatible with latest thunderbird
+    (#9, #10).
+
 0.0.6 Nov 04, 2016
   o Check if gEmailWizardLogger is already defined (#8464).
 
