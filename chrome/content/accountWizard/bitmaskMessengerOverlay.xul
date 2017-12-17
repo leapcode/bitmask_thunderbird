@@ -9,8 +9,12 @@
   <script type="application/javascript"
           src="chrome://bitmask/content/accountWizard/bitmaskMessengerOverlay.js"/>
 
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="bitmaskMessengerStrings" src="chrome://bitmask/locale/bitmaskMessengerOverlay.properties"/>
+  </stringbundleset>
+
   <statusbar id="status-bar">
-      <statusbarpanel id="bitmaskStatusBarPanel" />
+    <statusbarpanel id="bitmaskStatusBarPanel" class="statusbarpanel-iconic-text" />
   </statusbar>
 
   <menupopup id="menu_NewPopup">

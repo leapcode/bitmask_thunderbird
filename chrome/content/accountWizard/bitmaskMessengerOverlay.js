@@ -8,16 +8,19 @@ window.setInterval(function() {
 
 function overlayStartup() {
   let myPanel = document.getElementById("bitmaskStatusBarPanel");
+  let strBundle = document.getElementById("bitmaskMessengerStrings");
 
   // We just need to check if bitmaskd is running and if we were able to
   // authorize with it using the token from bitmask.js
   let promise = bitmask.core.status();
   promise.then(function(data) {
-    myPanel.label = "bitmask is " + data["mail"];
+    myPanel.label = strBundle.getFormattedString("bitmaskStatusOn", [ data["mail"] ]);
     myPanel.style.color = "green";
+    myPanel.src = "chrome://bitmask/skin/on.png";
   }, function(error) {
-    myPanel.label = "bitmask is not running";
+    myPanel.label = strBundle.getString("bitmaskStatusOff");
     myPanel.style.color = "red";
+    myPanel.src = "chrome://bitmask/skin/off.png";
     console.log(error);
   });
 }
