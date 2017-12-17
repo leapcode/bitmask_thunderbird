@@ -4,6 +4,15 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/javascript"
           src="chrome://bitmask/content/accountWizard/launchAccountWizard.js"/>
+  <script type="application/javascript"
+          src="chrome://bitmask/content/bitmask.js"/>
+  <script type="application/javascript"
+          src="chrome://bitmask/content/accountWizard/bitmaskMessengerOverlay.js"/>
+
+  <statusbar id="status-bar">
+      <statusbarpanel id="bitmaskStatusBarPanel" />
+  </statusbar>
+
   <menupopup id="menu_NewPopup">
     <menuitem id="newBitmaskAccountMenuItem"
               label="&newBitmaskAccountCmd.label;"
