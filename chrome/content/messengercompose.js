@@ -1,7 +1,32 @@
+// Assume that gBitmaskEncryptionState is true; if we detect a recipient
+// whose public key we don't know, we will set it to false, indicating
+// that the message will not be encrypted.
+var gBitmaskEncryptionState = true;
+
 var composeStateListener = {
   NotifyComposeBodyReady: function() {
   }
 };
+
+function insertEncryptionHeaders(event) {
+  // let msgComposeWindow = document.getElementById("msgcomposeWindow");
+  // let msgType = msgComposeWindow.getAttribute("msgType");
+
+  // // We only care about an actual send event.
+  // if (!(msgType == nsIMsgCompDeliverMode.Now || msgType == nsIMsgCompDeliverMode.Later))
+  //   return;
+
+  // // If gBitmaskEncryptionState is true that means that we know the public key
+  // // of all the recipients (see updateEncryptionStatus) and therefore we
+  // // manually add the encryption headers so that when we later call msg_status
+  // // from Bitmask, Thunderbird will know that the message was sent as
+  // // encrypted. This however does not work for older messages; see
+  // // https://0xacab.org/leap/bitmask-dev/issues/9202
+  // if (gBitmaskEncryptionState === true) {
+  //   gMsgCompose.compFields.setHeader("X-Leap-Encryption", "decrypted");
+  //   gMsgCompose.compFields.setHeader("X-Leap-Signature", "valid");
+  // }
+}
 
 // From addressingWidgetOverlay.js; we use this to call the function to update
 // the status of the encryption keys for the various "To" fields.  This is for
@@ -62,6 +87,8 @@ var checkToField = {
           toField.getElementsByTagName("image")[0].setAttribute("src",
             "chrome://bitmask/skin/lock.png");
         }).catch(function(error) {
+          // We detected a missing public key; message will be unencrypted.
+          gBitmaskEncryptionState = false;
           toField.getElementsByTagName("image")[0].setAttribute("src",
             "chrome://bitmask/skin/unlock.png");
         });
@@ -76,3 +103,5 @@ var checkToField = {
 window.addEventListener("compose-window-init", function(event) {
   gMsgCompose.RegisterStateListener(composeStateListener);
 }, true);
+
+window.addEventListener("compose-send-message", insertEncryptionHeaders, true);
