@@ -7,6 +7,8 @@ XPCOMUtils.defineLazyGetter(this, "_", () =>
   l10nHelper("chrome://bitmask/locale/bitmaskMessengerOverlay.properties")
 );
 
+var gNotified = false;
+
 var notificationBar = {
   onStartHeaders: function() {
     let currentFolder = gFolderDisplay.displayedFolder.name;
@@ -46,9 +48,18 @@ var notificationBar = {
   }
 }
 
+function displayAlert(image, title, text) {
+  try {
+    let alertsService = Cc["@mozilla.org/alerts-service;1"]
+                          .getService(Ci.nsIAlertsService)
+    alertsService.showAlertNotification(image, title, text, false, '', null);
+  } catch (e) {
+    console.log(text);
+  }
+}
+
 function overlayStartup() {
   let myPanel = document.getElementById("bitmaskStatusBarPanel");
-  let strBundle = document.getElementById("bitmaskMessengerStrings");
 
   // We just need to check if bitmaskd is running and if we were able to
   // authorize with it using the token from bitmask.js
@@ -57,10 +68,15 @@ function overlayStartup() {
     myPanel.label = _("bitmaskStatusOn", data["mail"]);
     myPanel.style.color = "green";
     myPanel.src = "chrome://bitmask/skin/on.png";
+    gNotified = false;
   }, function(error) {
-    myPanel.label = strBundle.getString("bitmaskStatusOff");
+    myPanel.label = _("bitmaskStatusOff");
     myPanel.style.color = "red";
     myPanel.src = "chrome://bitmask/skin/off.png";
+    if (!gNotified) {
+      displayAlert("chrome://bitmask/skin/off.png", "Bitmask", _("bitmaskRefreshInbox"));
+      gNotified = true;
+    }
     console.log(error);
   });
 }
