@@ -1,3 +1,8 @@
+0.0.8 Oct 30, 2017
+  o Display bitmask status in the systray (#2)
+  o Show encryption status on incoming emails (#3)
+  o Display if email will be encrypted on compose window (#4)
+
 0.0.7 Oct 30, 2017
   o Update string methods so extension is compatible with latest thunderbird
     (#9, #10).
