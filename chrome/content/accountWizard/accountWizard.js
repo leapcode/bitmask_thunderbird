@@ -589,7 +589,7 @@ BitmaskAccountWizard.prototype =
         { id: "next_button", action: makeCallback(this, this.onNext) },
         { id: "create_button", action: makeCallback(this, this.onCreate) },
       ];
-      for each (let button in buttons) {
+      for (let button of buttons) {
         button.e = e(button.id);
         if (button.e.hidden || button.e.disabled) {
           continue;

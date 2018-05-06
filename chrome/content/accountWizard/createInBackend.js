@@ -218,7 +218,7 @@ function doNotCache(inServer)
   inServerQI.offlineDownload = false;
   // and remove offline flag from all folders
   var allFolders = inServer.rootFolder.descendants;
-  for (let folder in fixIterator(allFolders, Components.interfaces.nsIMsgFolder))
+  for (let folder of fixIterator(allFolders, Components.interfaces.nsIMsgFolder))
     folder.clearFlag(Components.interfaces.nsMsgFolderFlags.Offline);
 }
 
@@ -236,8 +236,12 @@ function rememberPassword(server, password)
   login.init(passwordURI, null, passwordURI, server.username, password, "", "");
   try {
     Services.logins.addLogin(login);
-  } catch (e if e.message.includes("This login already exists")) {
-    // TODO modify
+  } catch (e) {
+    if (e.message.includes("This login already exists")) {
+      // TODO modify
+    } else {
+      throw e;
+    }
   }
 }
 

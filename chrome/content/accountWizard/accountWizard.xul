@@ -21,7 +21,7 @@
 <window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
         id="autoconfigWizard"
         windowtype="mail:autoconfig"
-        title="&autoconfigWizard.title;"
+        title="&autoconfigWizard2.title;"
         onload="gBitmaskAccountWizard.onLoad();"
         onkeypress="gBitmaskAccountWizard.onKeyDown(event)"
         onclose="gBitmaskAccountWizard.onWizardShutdown();"
@@ -100,7 +100,7 @@
                  control="email"/>
           <textbox id="email"
                    class="padded uri-element"
-                   placeholder="&email.placeholder;"
+                   placeholder="&email2.placeholder;"
                    oninput="gBitmaskAccountWizard.onInputEmail();"
                    onblur="gBitmaskAccountWizard.onBlurEmail();"/>
           <hbox>
