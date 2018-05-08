@@ -1,4 +1,7 @@
-0.0.8 Oct 30, 2017
+0.0.9 May 08, 2018
+  o Add support for Thunderbird 60
+
+0.0.8 Apr 12, 2018
   o Display bitmask status in the systray (#2)
   o Show encryption status on incoming emails (#3)
   o Display if email will be encrypted on compose window (#4)
